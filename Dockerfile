@@ -28,3 +28,4 @@ RUN pip install pandocfilters \
     && pip3 install mkdocs plantuml-markdown
 RUN pip install pandoc-latex-environment
 RUN apt-get install -y minify
+RUN apt-get install -y rsync
