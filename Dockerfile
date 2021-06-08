@@ -12,7 +12,8 @@ RUN apt-get update -y \
     texlive-bibtex-extra \
     texlive-latex-recommended \
     texlive-lang-french \
-    texlive-extra-utils\
+    texlive-extra-utils \
+    texlive-luatex \
     latexmk \
     latex-mk \
     latex-make \
