@@ -1,12 +1,14 @@
-FROM debian
+FROM ubuntu:hirsute
 MAINTAINER Sylvain Bouveret <Sylvain.Bouveret@grenoble-inp.fr>
 
-#Install pandoc and latex package
-RUN apt-get update -y \
-   && apt-get install -y \
+RUN apt-get update -y
+# Following line is necessary (otherwise the install gets stuck)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y tzdata
+# Install latex package
+RUN apt-get install -y \
     texlive-latex-base \
     texlive-xetex  \
-    texlive-science texlive-science-doc \
+    texlive-science \
     texlive-latex-extra \
     texlive-fonts-extra \
     texlive-bibtex-extra \
@@ -16,18 +18,23 @@ RUN apt-get update -y \
     texlive-luatex \
     latexmk \
     latex-mk \
-    latex-make \
-    pandoc  \
+    latex-make
+RUN apt-get install -y \
     fontconfig \
     lmodern \
     inkscape pdf2svg make
+# Install pandoc (version 2.14)
+RUN apt-get install -y wget
+RUN wget https://github.com/jgm/pandoc/releases/download/2.14.2/pandoc-2.14.2-1-amd64.deb && dpkg -i pandoc-2.14.2-1-amd64.deb
+RUN rm pandoc-2.14.2-1-amd64.deb
+#
 WORKDIR /usr/local
-#Install plantuml and chamilotools
-RUN apt-get install -y git python-pip python3-pip plantuml python3
-RUN pip install pandocfilters \
-    && pip install pandoc-plantuml-filter \
+# Install plantuml and chamilotools
+RUN apt-get install -y git python3-pip plantuml python3
+RUN pip3 install pandocfilters \
+    && pip3 install pandoc-plantuml-filter \
     && pip3 install sphinx recommonmark \
     && pip3 install mkdocs plantuml-markdown
-RUN pip install pandoc-latex-environment
+RUN pip3 install pandoc-latex-environment
 RUN apt-get install -y minify
 RUN apt-get install -y rsync
