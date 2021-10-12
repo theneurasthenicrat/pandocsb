@@ -34,7 +34,8 @@ RUN apt-get install -y git python3-pip plantuml python3
 RUN pip3 install pandocfilters \
     && pip3 install pandoc-plantuml-filter \
     && pip3 install sphinx recommonmark \
-    && pip3 install mkdocs plantuml-markdown
+    && pip3 install mkdocs plantuml-markdown \
+    && pip3 install panflute
 RUN pip3 install pandoc-latex-environment
 RUN apt-get install -y minify
 RUN apt-get install -y rsync
